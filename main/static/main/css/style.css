@@ -115,6 +115,11 @@ nav {
     color: var(--txt-clr-o);
 }
 
+nav a {
+    text-decoration: none;
+    color: var(--txt-clr-o);
+}
+
 nav h2 {
     padding: 20px;
 }

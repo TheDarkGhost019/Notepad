@@ -1,0 +1,14 @@
+{% extends "main/index.html" %}
+
+{% block main %}
+<main>
+    <div class="brand">
+        <h1>Log in your account</h1>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Log In</button>
+    </form>
+</main>
+{% endblock %}
