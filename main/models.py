@@ -9,6 +9,7 @@ class Note(models.Model):
     addingDate = models.DateTimeField(auto_now=True)
     dateStart = models.DateTimeField(auto_now_add=True)
     dateEnd = models.DateTimeField(auto_now_add=True)
+    taskIsComplete = models.BooleanField(default=False)
     
     def __str__(self):
         return (f"Note[PK:{self.pk}]: {self.title}; {self.addingDate}")
