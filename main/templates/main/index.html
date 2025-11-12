@@ -19,13 +19,14 @@
     <nav>
         <a href="{% url 'main:home' %}"><h2>Menu</h2></a>
         <ul>
+            <li><a href="{% url 'main:tasks' %}">Tasks</a></li>
+            <li><a href="#">Statistics</a></li>
             {% if request.user.is_authenticated %} 
                 <li><a href="{% url 'auth:logout' %}">Log out</a></li>
             {% else %}
                 <li><a href="{% url 'auth:login' %}">Log In</a></li>
                 <li><a href="{% url 'auth:signup' %}">Sign Up</a></li>
             {% endif %}
-            <li><a href="#">Item</a></li>
         </ul>
     </nav>
     {% endblock %}
@@ -39,8 +40,9 @@
         <p>It's your Notepad, where you can manage your tasks.</p>
         <h3>Current tasks</h3>
         {% for n in current_notes %}
-            <h4>{{ n.title }}</h4>
-            <p>{{ n.taskIsComplete }}</p>
+            <a href="{% url 'main:task' n.pk %}"><h4>{{ n.title }}</h4></a>
+            {% if n.taskIsComplete %}<input type="checkbox" checked>{%else%}<input type="checkbox">{%endif%}
+            <p>{{ n.dateStart }} - {{ n.dateEnd }}</p>
         {% endfor %}
         {% else %}
         <div class="brand">
