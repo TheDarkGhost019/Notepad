@@ -8,7 +8,9 @@ today = datetime.now()
 
 def home(request):
     
-    current_notes = Note.objects.filter(dateStart__lte=today, dateEnd__gte=today)   
+    current_notes = []
+    if request.user.is_authenticated:
+        current_notes = Note.objects.filter(dateStart__lte=today, dateEnd__gte=today, author=request.user.pk)   
     
     data = {
         'current_notes': current_notes,
@@ -21,7 +23,7 @@ def tasks(request):
     
     notes = []
     if request.user.is_authenticated:
-        notes = Note.objects.filter(author=request.user.username)
+        notes = Note.objects.filter(author=request.user.pk)
     
     data = {
         'notes':notes,
