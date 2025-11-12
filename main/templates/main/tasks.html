@@ -1,0 +1,14 @@
+{% extends "main/index.html" %}
+
+{% block main %}
+<main>
+    <div class="brand">
+        <h1>All tasks</h1>
+    </div>
+    {% for n in notes %}
+        <a href="{% url 'main:task' n.pk %}"><h4>{{ n.title }}</h4></a>
+        {% if n.taskIsComplete %}<input type="checkbox" checked>{%else%}<input type="checkbox">{%endif%}
+        <p>{{ n.dateStart }} - {{ n.dateEnd }}</p>
+    {% endfor %}
+</main>
+{% endblock %}

@@ -1,3 +1,4 @@
+
 // Auto growing textareas
 
 function autoGrowTextArea (element) {
@@ -9,4 +10,3 @@ const textArea = document.querySelector("textarea")
 textArea.addEventListener('input', () => autoGrowTextArea(textArea));
 
 autoGrowTextArea(textArea); 
-

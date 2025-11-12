@@ -9,4 +9,5 @@ class NoteAddingForm(forms.ModelForm):
     
     class Meta:
         model = Note
-        fields = ["title", "addingDate", "dateStart", "dateEnd", "taskIsComplete"]
+        fields = ["title", "dateStart", "dateEnd", "taskIsComplete"]
+

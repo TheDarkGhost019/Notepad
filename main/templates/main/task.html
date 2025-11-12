@@ -1,0 +1,16 @@
+{% extends "main/index.html" %}
+
+{% block main %}
+<main>
+    <div class="brand">
+        <h1>{{ note.title }}</h1>
+    </div>
+    {% if note.taskIsComplete %}
+        <h4>Task is complete! Congratulations!!!</h4>
+    {%else%}
+        <h4>Task is not complete yet! Get out of here and back to work!</h4>
+    {%endif%}
+    <p>Task started at {{ note.dateStart }}</p>
+    <p>Finishing date: {{ note.dateEnd }}</p>
+</main>
+{% endblock %}
