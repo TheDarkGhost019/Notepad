@@ -2,7 +2,7 @@ from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Note
-from .forms import NoteAddingForm
+from .forms import NoteAddingForm, NoteEditingForm
 from datetime import datetime
 
 
@@ -79,3 +79,17 @@ def task(request, note_pk):
     }
     
     return render(request, 'main/task.html', context=data)
+
+
+@login_required(login_url='auth:login')
+def edit_task(request, note_pk):
+    
+    note = Note.objects.get(pk=note_pk)
+    note_form = NoteEditingForm(instance=note)
+    
+    data = {
+        'note': note,
+        'note_form': note_form,
+    }
+    
+    return render(request, 'main/edit_task.html', context=data)

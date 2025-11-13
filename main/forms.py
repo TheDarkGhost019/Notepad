@@ -13,3 +13,14 @@ class NoteAddingForm(forms.ModelForm):
     class Meta:
         model = Note
         fields = ["title", "description", "dateStart", "dateEnd"]
+
+
+class NoteEditingForm(forms.ModelForm):
+    
+    dateStart = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}), label="Starting date")
+    dateEnd = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}), label="Finishing date")
+    # addingDate = forms.DateTimeField()
+    
+    class Meta:
+        model = Note
+        fields = ["title", "description", "dateStart", "dateEnd", "taskIsComplete"]
