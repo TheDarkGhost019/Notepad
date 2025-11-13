@@ -89,11 +89,21 @@ def edit_task(request, note_pk):
     
     if request.POST:
         
-        edit_form = NoteEditingForm(request.POST, instance=note)
+        editing_form = request.POST.get("edit_form")
         
-        if edit_form.is_valid:
-            edit_form.save()
-            return redirect("main:task", note.pk)
+        if editing_form:
+            edit_form = NoteEditingForm(request.POST, instance=note)
+        
+            if edit_form.is_valid:
+                edit_form.save()
+                return redirect("main:task", note.pk)
+        
+        
+        delete_post = request.POST.get("delete-form")
+        
+        if delete_post:
+            note.delete()
+            return redirect("main:tasks")
     
     data = {
         'note': note,

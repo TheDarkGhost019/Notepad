@@ -15,6 +15,11 @@
         <button type="submit" name="edit-form" value="1">Commit</button>
     </form>
 
+    <form method="POST">
+        {% csrf_token %}
+        <p style="color:red">Important! Only if it is necessary! It'll got out of your account statics.</p>
+        <button type="submit" name="delete-form" value="1">Delete task</button>
+    </form>
 
 </main>
 {% endblock %}
