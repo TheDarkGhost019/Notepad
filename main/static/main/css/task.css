@@ -12,11 +12,11 @@
     width: 70%;
 }
 
-.task+ {
+.task-c {
     color: green;
 }
 
-.task- {
+.task-n {
     color: red;
 }
 

@@ -7,9 +7,9 @@
         <h1>{{ note.title }}</h1>
     </div>
     {% if note.taskIsComplete %}
-        <h3 class="task+">Task is complete! Congratulations!!!</h3>
+        <h3 class="task-c">Task is complete! Congratulations!!!</h3>
     {%else%}
-        <h3 class="task-">Task is not complete yet! Get out of here and back to work!</h3>
+        <h3 class="task-n">Task is not complete yet! Get out of here and back to work!</h3>
     {%endif%}
     
     <div class="descr">
@@ -22,10 +22,12 @@
         <p>Finishing date: {{ note.dateEnd }}</p>
     </div>
 
-    <form method="POST" class="row">
-        {% csrf_token %}
-        <button>Complete</button>
-    </form>
+    {% if not note.taskIsComplete %}
+        <form method="POST" class="row">
+            {% csrf_token %}
+            <button name="complete" value="1">Complete</button>
+        </form>
+    {%endif%}
 
 </main>
 {% endblock %}

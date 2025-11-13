@@ -65,6 +65,15 @@ def task(request, note_pk):
     
     note = Note.objects.get(pk=note_pk)
     
+    if request.method == "POST":
+        
+        completing_task = request.POST.get('complete')
+        
+        if completing_task:
+            note.taskIsComplete = True
+            note.save()
+            return redirect("main:task", note.pk)
+    
     data = {
         'note': note,
     }
