@@ -8,6 +8,7 @@
     <title>Notepad</title>
 
     <!-- styles and scripts  -->
+    <link rel="stylesheet" href="{% static 'main/css/task.css' %}">
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
     <script src="{% static 'main/js/script.js' %}" defer></script>
     {% block style %}{% endblock %}
@@ -39,11 +40,15 @@
             <h1>Hello, {{ request.user.username }}! Create your first notes here! ...</h1>
         </div>
         <p>It's your Notepad, where you can manage your tasks.</p>
-        <h3>Current tasks</h3>
+        <div class="descr">
+            <span><b>Current tasks</b></span>
+        </div>
         {% for n in current_notes %}
-            <a href="{% url 'main:task' n.pk %}"><h4>{{ n.title }}</h4></a>
-            {% if n.taskIsComplete %}<input type="checkbox" checked>{%else%}<input type="checkbox">{%endif%}
-            <p>{{ n.dateStart }} - {{ n.dateEnd }}</p>
+            <div class="task">
+                <a href="{% url 'main:task' n.pk %}"><h4>{{ n.title }}</h4></a>
+                {% if n.taskIsComplete %}<p class="task+">Completed</p>{%else%}<p class="task-">Not ompleted</p>{%endif%}
+                <p>{{ n.dateStart }} - {{ n.dateEnd }}</p>
+            </div>
         {% endfor %}
         {% else %}
         <div class="brand">

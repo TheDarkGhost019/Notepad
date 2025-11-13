@@ -1,4 +1,5 @@
 {% extends "main/index.html" %}
+{% load static %}
 
 {% block main %}
 <main>
@@ -6,11 +7,25 @@
         <h1>{{ note.title }}</h1>
     </div>
     {% if note.taskIsComplete %}
-        <h4>Task is complete! Congratulations!!!</h4>
+        <h3 class="task+">Task is complete! Congratulations!!!</h3>
     {%else%}
-        <h4>Task is not complete yet! Get out of here and back to work!</h4>
+        <h3 class="task-">Task is not complete yet! Get out of here and back to work!</h3>
     {%endif%}
-    <p>Task started at {{ note.dateStart }}</p>
-    <p>Finishing date: {{ note.dateEnd }}</p>
+    
+    <div class="descr">
+        <span><b>Description</b></span>
+        <p>{{ note.description }}</p>
+    </div>
+
+    <div class="range">
+        <p>Task started at {{ note.dateStart }}</p>
+        <p>Finishing date: {{ note.dateEnd }}</p>
+    </div>
+
+    <form method="POST" class="row">
+        {% csrf_token %}
+        <button>Complete</button>
+    </form>
+
 </main>
 {% endblock %}

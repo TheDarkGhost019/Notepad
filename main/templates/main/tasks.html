@@ -6,9 +6,11 @@
         <h1>All tasks</h1>
     </div>
     {% for n in notes %}
+    <div class="task">
         <a href="{% url 'main:task' n.pk %}"><h4>{{ n.title }}</h4></a>
-        {% if n.taskIsComplete %}<input type="checkbox" checked>{%else%}<input type="checkbox">{%endif%}
+        {% if n.taskIsComplete %}<p class="task+">Completed</p>{%else%}<p class="task-">Not ompleted</p>{%endif%}
         <p>{{ n.dateStart }} - {{ n.dateEnd }}</p>
+    </div>
     {% endfor %}
 </main>
 {% endblock %}
