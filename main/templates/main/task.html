@@ -1,16 +1,33 @@
 {% extends "main/index.html" %}
+{% load static %}
 
 {% block main %}
 <main>
     <div class="brand">
-        <h1>{{ note.title }}</h1>
+        <h1>{{ note.title }}</h1><a href="{% url 'main:edit_task' note.pk %}">edit</a>
     </div>
     {% if note.taskIsComplete %}
-        <h4>Task is complete! Congratulations!!!</h4>
+        <h3 class="task-c">Task is complete! Congratulations!!!</h3>
     {%else%}
-        <h4>Task is not complete yet! Get out of here and back to work!</h4>
+        <h3 class="task-n">Task is not complete yet! Get out of here and back to work!</h3>
     {%endif%}
-    <p>Task started at {{ note.dateStart }}</p>
-    <p>Finishing date: {{ note.dateEnd }}</p>
+    
+    <div class="descr">
+        <span><b>Description</b></span>
+        <p>{{ note.description }}</p>
+    </div>
+
+    <div class="range">
+        <p>Task started at {{ note.dateStart }}</p>
+        <p>Finishing date: {{ note.dateEnd }}</p>
+    </div>
+
+    {% if not note.taskIsComplete %}
+        <form method="POST" class="row">
+            {% csrf_token %}
+            <button name="complete" value="1">Complete</button>
+        </form>
+    {%endif%}
+
 </main>
 {% endblock %}

@@ -1,0 +1,29 @@
+.descr {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.descr span {
+    margin-bottom: 10px;
+}
+
+.descr p {
+    width: 70%;
+}
+
+.task-c {
+    color: green;
+}
+
+.task-n {
+    color: red;
+}
+
+.task {
+    margin: 10px 0;
+}
+
+form.row {
+    padding: 0;
+}

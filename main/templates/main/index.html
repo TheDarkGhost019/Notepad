@@ -8,6 +8,7 @@
     <title>Notepad</title>
 
     <!-- styles and scripts  -->
+    <link rel="stylesheet" href="{% static 'main/css/task.css' %}">
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
     <script src="{% static 'main/js/script.js' %}" defer></script>
     {% block style %}{% endblock %}
@@ -19,9 +20,10 @@
     <nav>
         <a href="{% url 'main:home' %}"><h2>Menu</h2></a>
         <ul>
-            <li><a href="{% url 'main:tasks' %}">Tasks</a></li>
-            <li><a href="#">Statistics</a></li>
             {% if request.user.is_authenticated %} 
+                <li><a href="{% url 'main:tasks' %}">Tasks</a></li>
+                <li><a href="{% url 'main:new_task' %}">Add Task</a></li>
+                <li><a href="#">Statistics</a></li>
                 <li><a href="{% url 'auth:logout' %}">Log out</a></li>
             {% else %}
                 <li><a href="{% url 'auth:login' %}">Log In</a></li>
@@ -38,11 +40,15 @@
             <h1>Hello, {{ request.user.username }}! Create your first notes here! ...</h1>
         </div>
         <p>It's your Notepad, where you can manage your tasks.</p>
-        <h3>Current tasks</h3>
+        <div class="descr">
+            <span><b>Current tasks</b></span>
+        </div>
         {% for n in current_notes %}
-            <a href="{% url 'main:task' n.pk %}"><h4>{{ n.title }}</h4></a>
-            {% if n.taskIsComplete %}<input type="checkbox" checked>{%else%}<input type="checkbox">{%endif%}
-            <p>{{ n.dateStart }} - {{ n.dateEnd }}</p>
+            <div class="task">
+                <a href="{% url 'main:task' n.pk %}"><h4>{{ n.title }}</h4></a>
+                {% if n.taskIsComplete %}<p class="task-c">Completed</p>{%else%}<p class="task-n">Not ompleted</p>{%endif%}
+                <p>{{ n.dateStart }} - {{ n.dateEnd }}</p>
+            </div>
         {% endfor %}
         {% else %}
         <div class="brand">
