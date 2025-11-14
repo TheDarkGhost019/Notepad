@@ -1,11 +1,13 @@
-from django.shortcuts import render
-# from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from authentication.forms import RegisterForm
 from main.models import Note
 
 
-
-def statistics(request):
+@login_required(login_url="auth:login")
+def statistics(request, user):
     
     note_count = Note.objects.filter(author=request.user).count()
     
@@ -16,9 +18,34 @@ def statistics(request):
     return render(request, "studio/studio.html" , context=data)
 
 
-def edit_account(request, username):
+@login_required(login_url="auth:login")
+def edit_account(request, user):
     
     user_form = RegisterForm(instance=request.user)
+    
+    if request.method == "POST":
+        
+        edit = request.POST.get("user-edit")
+        
+        if edit:
+            try:
+                user_edit_form = RegisterForm(request.POST, instance=request.user)
+                if user_edit_form.is_valid:
+                    user_edit_form.save()
+                    return redirect("studio:statistics", user)
+            except Exception:
+                print("Smth went wrong.")
+        
+        delete = request.POST.get("user-delete")
+        
+        if delete:
+            try:
+                User.objects.get(pk=request.user.pk, username=request.user.username)#.delete
+                print("deleted")
+                return redirect("main:home")
+            except Exception:
+                print("Smth went wrong")
+    
     
     data = {
         'user_form': user_form

@@ -3,6 +3,6 @@ from . import views
 
 app_name='studio'
 urlpatterns = [
-    path('', views.statistics, name="statistics"),
-    path('edit/<str:username>', views.edit_account, name="edit_account"),
+    path('studio/<int:user>', views.statistics, name="statistics"),
+    path('studio/<int:user>/edit', views.edit_account, name="edit_account"),
 ]
