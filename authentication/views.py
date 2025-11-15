@@ -3,24 +3,27 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from .forms import LoginForm, RegisterForm
 
-
 def log_in(request):
     
     form = LoginForm()
     
     if request.POST:
         
-        username = request.POST["username"]
-        email = request.POST["email"]
-        password = request.POST["password"]
+        form = LoginForm(request.POST)
         
-        user = authenticate(request, username=username, email=email, password=password)
-        
-        if user is not None:
-            login(request, user)
-            return redirect("main:home")
-        else:
-            messages.error(request, "User isn\'t founded!")
+        if form.is_valid():
+            
+            username = form.cleaned_data["username"]
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            
+            user = authenticate(request, username=username, email=email, password=password)
+            
+            if user is not None:
+                login(request, user)
+                return redirect("main:home")
+            else:
+                messages.error(request, "Invalid password.")
     
     data = {
         'form': form,
