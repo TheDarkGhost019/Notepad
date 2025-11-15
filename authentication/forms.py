@@ -2,16 +2,17 @@ from typing import Any
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
-class LoginForm(AuthenticationForm):
+class LoginForm(forms.Form):
     
-    email = forms.CharField(widget=forms.EmailInput)
-    
+    username = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Enter your username"}), label="Login")
+    email = forms.CharField(widget=forms.EmailInput(attrs={"placeholder":"Email address"}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"Enter your password"}))
+
     class Meta:
-        model = User
-        fields = ["username", "email", "password"]
+        fields = ["username", "password", "email"]
 
 
 class RegisterForm(UserCreationForm):
