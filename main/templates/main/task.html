@@ -18,6 +18,7 @@
     </div>
 
     <div class="range">
+        <p>Optional file: <a href="{{note.file.url}}" target="_blank">{{ note.file }}</a> <a href="{% url 'main:file_download' note.pk %}">Download file</a></p>
         <p>Task started at {{ note.dateStart }}</p>
         <p>Finishing date: {{ note.dateEnd }}</p>
     </div>

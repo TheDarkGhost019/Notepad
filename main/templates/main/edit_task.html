@@ -8,7 +8,7 @@
         <h1>{{ note.title }}</h1>
     </div>
 
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <p>Creating date: {{ note.addingDate }}</p>
         {{ note_form.as_p }}
