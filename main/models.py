@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 
 
@@ -14,4 +15,12 @@ class Note(models.Model):
     taskIsComplete = models.BooleanField(default=False)
     
     def __str__(self):
+        
         return (f"Note[PK:{self.pk}]: {self.title}; {self.addingDate}")
+    
+    def clean(self) -> None:
+        
+        super().clean()
+        
+        if self.file and self.file.size > 10*1024*1024:
+            raise ValidationError("File size cannot be more than 10 mB.")
