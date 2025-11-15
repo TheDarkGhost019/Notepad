@@ -2,7 +2,7 @@ from typing import Any
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 
 
 class LoginForm(AuthenticationForm):
@@ -31,8 +31,13 @@ class RegisterForm(UserCreationForm):
         if cleaned_data.get("password1") != cleaned_data.get("password2"):
             raise ValidationError("Passwords does not match!")
         
-        username = cleaned_data.get("username")
-        password = cleaned_data.get("password1")
-        email = cleaned_data.get("email")
-        
         return cleaned_data
+    
+
+class UpdateAccountForm(UserChangeForm):
+    
+    email = forms.CharField(widget=forms.EmailInput)
+    
+    class Meta:
+        model = User
+        fields = ["username", "email", "first_name", "last_name", "password"]
